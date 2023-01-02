@@ -8,149 +8,145 @@ defineProps({
     <div class="calc--body default-border">
       <div class="calc--input default-border"></div>
       <div class="calc--board default-border">
-        <div class="calc-board--line m-0 p-0">
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-c" />
-            </div>
+
+        <!-- Linha -->
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-c" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-a" />
-              <fa-icon icon="fa-c" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-a" />
+            <fa-icon icon="fa-c" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-arrow-left-long" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-arrow-left-long" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-clock-rotate-left" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-clock-rotate-left" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-divide" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-divide" />
           </div>
         </div>
 
-        <div class="calc-board--line m-0 p-0">
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-7" />
-            </div>
+        <!-- Linha -->
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-7" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-8" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-8" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-9" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-9" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-square-root-variable" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-square-root-variable" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-xmark" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-xmark" />
           </div>
         </div>
 
-        <div class="calc-board--line m-0 p-0">
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-4" />
-            </div>
+        <!-- Linha -->
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-4" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-5" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-5" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-6" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-6" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-xmark" />²
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-xmark" />²
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-minus" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-minus" />
           </div>
         </div>
 
-        <div class="calc-board--line m-0 p-0">
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-1" />
+        <!-- Linha -->
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-1" />
 
-            </div>
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-2" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-2" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-3" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-3" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-percent" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-percent" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <fa-icon icon="fa-plus" />
-            </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-plus" />
           </div>
         </div>
 
-        <div class="calc-board--line m-0 p-0">
-          <div class="calc--button">
-            <div class="calc--button--place">
+        <!-- Linha -->
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <fa-icon icon="fa-0" />
+          </div>
+        </div>
+        <div class="calc--button">
+          <div class="calc--button--place">
+            <span class="m-1">
               <fa-icon icon="fa-0" />
-            </div>
+            </span>
+            <fa-icon icon="fa-0" />
           </div>
-          <div class="calc--button">
-            <div class="calc--button--place">
-              <span class="m-1">
-                <fa-icon icon="fa-0" />
-              </span>
-              <fa-icon icon="fa-0" />
-            </div>
+        </div>
+        <div
+          style="font-weight: 900;"
+          class="calc--button"
+        >
+          <div class="calc--button--place">
+            ,
           </div>
-          <div
-            style="font-weight: 900;"
-            class="calc--button"
-          >
-            <div class="calc--button--place">
-              ,
-            </div>
-          </div>
-          <div
-            class="calc--button"
-            style="width: 40%;"
-          >
-            <div class="calc--button--place">
-              <fa-icon icon="fa-equals" />
-            </div>
+        </div>
+        <div
+          class="calc--button"
+          style="width: 40%;"
+        >
+          <div class="calc--button--place">
+            <fa-icon icon="fa-equals" />
           </div>
         </div>
       </div>
@@ -173,6 +169,7 @@ defineProps({
 .calc--body {
   margin: 0 auto;
   background-color: rgb(29, 29, 29);
+  border: 8px solid rgb(238, 202, 0);
   width: 30vw;
   height: 75vh;
 }
@@ -184,7 +181,9 @@ defineProps({
 }
 
 .calc--board {
-  margin: 6vh auto;
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 4vh auto;
   width: 85%;
   height: 54vh;
 }
@@ -199,7 +198,7 @@ defineProps({
   font-size: 28px;
   display: flex;
   width: 20%;
-  height: 100%;
+  height: 20%;
   border: 1px solid rgb(240, 240, 240);
   justify-content: center;
   align-items: center;
