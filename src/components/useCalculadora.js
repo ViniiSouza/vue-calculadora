@@ -24,10 +24,6 @@ export default function useCalculadora (window, keyButtons) {
     calcStore.changeValue(newValue)
   }
 
-  const clearValue = () => {
-    calcStore.clearValue()
-  }
-
   const setComma = () => {
     if (!calcStore.getValue.includes(',')) {
       let result = calcStore.getValue + ','
@@ -45,6 +41,19 @@ export default function useCalculadora (window, keyButtons) {
     }
   }
 
+  const clearValue = () => {
+    calcStore.clearValue()
+  }
+
+  const removeLastCharacter = () => {
+    if (calcStore.getValue != '0') {
+      if (calcStore.getValue.length > 1)
+        calcStore.removeLastCharacter()
+      else
+        calcStore.changeValue('0')
+    }
+  }
+
   const executeButton = (event, value) => {
     if (event == 'setComma') {
       setComma()
@@ -54,6 +63,9 @@ export default function useCalculadora (window, keyButtons) {
     }
     else if (event == 'clear') {
       clearValue()
+    }
+    else if (event == 'delete') {
+      removeLastCharacter()
     }
   }
 
@@ -74,18 +86,24 @@ export default function useCalculadora (window, keyButtons) {
 
     window.addEventListener("keydown", function (e) {
       if (isValidCharKey(e.keyCode)) {
+        let result
         switch (e.keyCode) {
           case 8:
+            result = 'delete'
             setHover('backspace')
             break
           case 13:
+            result = 'result'
             setHover('=')
             break
           case 46:
+            result = 'clear'
             setHover('c')
+            break;
           default:
             return
         }
+        executeButton(result, null)
       }
     });
   }
