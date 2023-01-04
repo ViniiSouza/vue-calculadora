@@ -28,6 +28,12 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['button-clicked'])
+
+const sendEvent = () => {
+  emit('button-clicked')
+}
+
 const hover = ref(false)
 
 watch(() => props.hover, value => {
@@ -38,6 +44,7 @@ watch(() => props.hover, value => {
   <div
     class="calc--button"
     :style="`width: ${width * 20}%`"
+    @click="sendEvent"
   >
     <div
       class="calc--button--place"

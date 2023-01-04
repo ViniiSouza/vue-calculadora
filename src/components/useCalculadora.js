@@ -16,12 +16,16 @@ export default function useCalculadora (window, keyButtons) {
   const calcStore = useCalculatorStore()
 
   const setValue = value => {
-    let newValue
-    if (calcStore.getValue == '0')
-      newValue = value
-    else
+    let newValue = calcStore.getValue
+    if (calcStore.getValue !== '0')
       newValue = calcStore.getValue + value
+    else if (value != '0' && value != '00')
+      newValue = value
     calcStore.changeValue(newValue)
+  }
+
+  const clearValue = () => {
+    calcStore.clearValue()
   }
 
   const setComma = () => {
@@ -38,6 +42,18 @@ export default function useCalculadora (window, keyButtons) {
       setTimeout(() => {
         keyButtons.value[index].hover = false
       }, 200)
+    }
+  }
+
+  const executeButton = (event, value) => {
+    if (event == 'setComma') {
+      setComma()
+    }
+    else if (event == 'setNumber') {
+      setValue(value)
+    }
+    else if (event == 'clear') {
+      clearValue()
     }
   }
 
@@ -75,6 +91,7 @@ export default function useCalculadora (window, keyButtons) {
   }
 
   return {
-    setKeyboardEvents
+    setKeyboardEvents,
+    executeButton
   }
 }

@@ -8,7 +8,7 @@ const calcStore = useCalculatorStore()
 
 const keyButtons = ref(keys)
 
-const { setKeyboardEvents } = useCalculadora(window, keyButtons)
+const { setKeyboardEvents, executeButton } = useCalculadora(window, keyButtons)
 
 
 defineProps({
@@ -32,6 +32,7 @@ onMounted(() => setKeyboardEvents())
           :event="key.event"
           :extra-text="key.extraText"
           :hover="key.hover"
+          @button-clicked="executeButton(key.event, key.value)"
         />
       </div>
     </div>

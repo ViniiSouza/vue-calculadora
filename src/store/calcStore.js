@@ -13,5 +13,8 @@ export const useCalculatorStore = defineStore('calculator', {
     changeValue(newValue) {
       this.value = newValue
     },
+    clearValue() {
+      this.value = '0'
+    }
   },
 })
