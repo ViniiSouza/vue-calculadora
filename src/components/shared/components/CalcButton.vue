@@ -1,5 +1,7 @@
 <script setup>
-defineProps({
+import { ref, watch } from "vue"
+
+const props = defineProps({
   icons: {
     default: [],
     type: Array
@@ -19,13 +21,33 @@ defineProps({
   extraText: {
     default: '',
     type: String
+  },
+  hover: {
+    default: false,
+    type: Boolean
   }
+})
+
+const hover = ref(false)
+
+watch(() => props.hover, value => {
+  hover.value = value
 })
 </script>
 <template>
-  <div class="calc--button" :style="`width: ${width * 20}%`">
-    <div class="calc--button--place">
-      <fa-icon v-for="icon in icons" :key="icon" :icon="icon" />
+  <div
+    class="calc--button"
+    :style="`width: ${width * 20}%`"
+  >
+    <div
+      class="calc--button--place"
+      :class="hover ? 'calc--button_hover' : ''"
+    >
+      <fa-icon
+        v-for="icon in icons"
+        :key="icon"
+        :icon="icon"
+      />
       <span v-if="extraText">{{ extraText }}</span>
     </div>
   </div>
@@ -54,8 +76,14 @@ defineProps({
 }
 
 .calc--button:hover .calc--button--place {
-  transition: 0.3s;
   background-color: rgb(240, 240, 240);
   color: rgb(29, 29, 29);
+  transition: 0.3s;
+}
+
+.calc--button_hover {
+  background-color: rgb(240, 240, 240);
+  color: rgb(29, 29, 29);
+  transition: 0.3s;
 }
 </style>

@@ -1,10 +1,19 @@
 <script setup>
+import useCalculadora from './useCalculadora'
 import { useCalculatorStore } from '../store/calcStore';
 import keys from './shared/keys'
 import CalcButton from './shared/components/CalcButton.vue';
+import { onMounted, ref } from '@vue/runtime-core';
 const { value } = useCalculatorStore()
+
+const keyButtons = ref(keys)
+
+const { setKeyboardEvents } = useCalculadora(window, keyButtons)
+
+
 defineProps({
 })
+onMounted(() => setKeyboardEvents())
 </script>
 
 <template>
@@ -15,13 +24,14 @@ defineProps({
       </div>
       <div class="calc--board default-border">
         <calc-button
-          v-for="key in keys"
+          v-for="key in keyButtons"
           :key="key"
           :icons="key.icons"
           :width="key.width"
           :key-detect="key.keyDetect"
           :event="key.event"
           :extra-text="key.extraText"
+          :hover="key.hover"
         />
       </div>
     </div>
