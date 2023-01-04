@@ -7,10 +7,15 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import './assets/main.css'
 import icons from './icons/icons'
+import { createPinia } from 'pinia'
 
 library.add(icons)
 
 const app = createApp(App)
+
+const pinia = createPinia()
+
+app.use(pinia)
 
 app.use(router)
 
