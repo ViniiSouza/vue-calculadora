@@ -18,10 +18,17 @@ export default function useCalculadora (window, keyButtons) {
   const setValue = value => {
     let newValue
     if (calcStore.getValue == '0')
-        newValue = value
-      else 
-        newValue = calcStore.getValue + value
+      newValue = value
+    else
+      newValue = calcStore.getValue + value
     calcStore.changeValue(newValue)
+  }
+
+  const setComma = () => {
+    if (!calcStore.getValue.includes(',')) {
+      let result = calcStore.getValue + ','
+      calcStore.changeValue(result)
+    }
   }
 
   const setHover = value => {
@@ -36,11 +43,16 @@ export default function useCalculadora (window, keyButtons) {
 
   const setKeyboardEvents = () => {
     window.addEventListener("keypress", function (e) {
+      const keyTranslated = String.fromCharCode(e.keyCode)
       if (isValidKey(e.keyCode)) {
-        if (numberKeys.includes(String.fromCharCode(e.keyCode))) {
-          setValue(String.fromCharCode(e.keyCode))
+        if (keyTranslated == ',') {
+          setComma()
         }
-        setHover(String.fromCharCode(e.keyCode))
+        else if (numberKeys.includes(keyTranslated)) {
+          setValue(keyTranslated)
+        }
+
+        setHover(keyTranslated)
       }
     });
 
