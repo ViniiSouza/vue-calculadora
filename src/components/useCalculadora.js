@@ -1,4 +1,7 @@
+import { useCalculatorStore } from '../store/calcStore';
+
 const validKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', '*', '/', '%', '=', ',']
+const numberKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 const validCharKeys = [8, 13, 46] // backspace, enter and delete
 
 function isValidKey (keyCode) {
@@ -10,6 +13,17 @@ function isValidCharKey (charKeyCode) {
 }
 
 export default function useCalculadora (window, keyButtons) {
+  const calcStore = useCalculatorStore()
+
+  const setValue = value => {
+    let newValue
+    if (calcStore.getValue == '0')
+        newValue = value
+      else 
+        newValue = calcStore.getValue + value
+    calcStore.changeValue(newValue)
+  }
+
   const setHover = value => {
     let index = keyButtons.value.findIndex(where => where.value == value)
     if (index != -1) {
@@ -22,8 +36,12 @@ export default function useCalculadora (window, keyButtons) {
 
   const setKeyboardEvents = () => {
     window.addEventListener("keypress", function (e) {
-      if (isValidKey(e.keyCode))
+      if (isValidKey(e.keyCode)) {
+        if (numberKeys.includes(String.fromCharCode(e.keyCode))) {
+          setValue(String.fromCharCode(e.keyCode))
+        }
         setHover(String.fromCharCode(e.keyCode))
+      }
     });
 
     window.addEventListener("keydown", function (e) {

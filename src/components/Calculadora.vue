@@ -4,7 +4,7 @@ import { useCalculatorStore } from '../store/calcStore';
 import keys from './shared/keys'
 import CalcButton from './shared/components/CalcButton.vue';
 import { onMounted, ref } from '@vue/runtime-core';
-const { value } = useCalculatorStore()
+const calcStore = useCalculatorStore()
 
 const keyButtons = ref(keys)
 
@@ -20,7 +20,7 @@ onMounted(() => setKeyboardEvents())
   <div class="place">
     <div class="calc--body default-border">
       <div class="calc--input default-border">
-        <p class="calc--input--value">{{ value }}</p>
+        <p class="calc--input--value">{{ calcStore.value }}</p>
       </div>
       <div class="calc--board default-border">
         <calc-button
