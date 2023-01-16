@@ -20,6 +20,7 @@ onMounted(() => setKeyboardEvents())
   <div class="place">
     <div class="calc--body default-border">
       <div class="calc--input default-border">
+        <p class="calc-input--over-value">{{ calcStore.operation || '&nbsp;' }}</p>
         <p class="calc--input--value">{{ calcStore.value }}</p>
       </div>
       <div class="calc--board default-border">
@@ -60,16 +61,27 @@ onMounted(() => setKeyboardEvents())
 }
 
 .calc--input {
+  overflow: hidden;
   margin: 3vh auto;
   width: 85%;
   height: 8vh;
+}
+
+.calc-input--over-value {
+  color: white;
+  text-align: start;
+  font-weight: 500;
+  line-height: 2vh;
+  font-size: 30px;
+  margin-top: 1vh;
+  margin-left: 1vw;
 }
 
 .calc--input--value {
   color: white;
   text-align: end;
   font-size: 36px;
-  line-height: 10.5vh;
+  line-height: 0vh;
   margin-right: 0.5vw;
 }
 
