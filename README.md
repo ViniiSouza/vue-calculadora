@@ -2,6 +2,8 @@
 
 Projeto de uma calculadora em vue, com cálculos padrões, cálculos avançados, histórico de cálculos e interface amigável
 
+<img style="margin: 0 auto; width: 50%;" src="https://i.imgur.com/qd37vqu.png" />
+
 ## Objetivos
 
 Trabalhar com os conceitos de matemática, componentização, arquivos js com diferentes objetivos, etc.
