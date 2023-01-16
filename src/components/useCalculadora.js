@@ -68,6 +68,7 @@ export default function useCalculadora (window, keyButtons) {
     // tratar melhor tudo isso
     calcStore.firstValue = ''
     calcStore.secondValue = ''
+    calcStore.lastCalc = ''
   }
 
   const removeLastCharacter = () => {
@@ -85,6 +86,7 @@ export default function useCalculadora (window, keyButtons) {
 
   const defOperation = (array, value) => {
     if (array.includes(value)) {
+      calcStore.lastCalc = calcStore.firstValue
       if (calcStore.firstValue && calcStore.handling == 'first') {
         calcStore.value = ''
         calcStore.handling = 'second'
@@ -92,15 +94,19 @@ export default function useCalculadora (window, keyButtons) {
       setValue('', false)
       if (value == 'add' || value == '+') {
         setOperation('+')
+        calcStore.lastCalc += ' +'
       }
       else if (value == 'subtract' || value == '-') {
         setOperation('-')
+        calcStore.lastCalc += ' -'
       }
       else if (value == 'multiply' || value == '*') {
         setOperation('x')
+        calcStore.lastCalc += ' x'
       }
       else if (value == 'divide' || value == '/') {
         setOperation('÷')
+        calcStore.lastCalc += ' ÷'
       }
     }
   }
@@ -124,14 +130,10 @@ export default function useCalculadora (window, keyButtons) {
       removeLastCharacter()
     }
     else if (event == 'getResult') {
-      console.log('entra 1');
       if (calcStore.firstValue && calcStore.secondValue) {
         let result
         switch (calcStore.operation) {
           case '+':
-            console.log('entra 2')
-            console.log(calcStore.firstValue, calcStore.secondValue)
-            console.log(add(calcStore.firstValue, calcStore.secondValue))
             result = add(calcStore.firstValue, calcStore.secondValue)
             break
           case '-':
@@ -146,6 +148,7 @@ export default function useCalculadora (window, keyButtons) {
           default:
             break
         }
+        calcStore.lastCalc += ` ${calcStore.secondValue} =`
         
         setValue(result)
         // melhorar tratamento
