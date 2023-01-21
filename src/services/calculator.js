@@ -1,25 +1,36 @@
+function parseToNumber(value) {
+  return parseFloat(value.replace(/,/g, '.'))
+}
+
+function parseToRead(value) {
+  return value.toString().replace('.', ',')
+}
+
 export function add(x, y) {
-  return parseFloat(x) + parseFloat(y)
+  return parseToRead(parseToNumber(x) + parseToNumber(y))
 }
 
 export function subtract(x, y) {
-  return parseFloat(x) - parseFloat(y)
+  return parseToRead(parseToNumber(x) - parseToNumber(y))
 }
 
 export function multiply(x, y) {
-  return parseFloat(x) * parseFloat(y)
+  return parseToRead(parseToNumber(x) * parseToNumber(y))
 }
 
 export function divide(x, y) {
-  return parseFloat(x) / parseFloat(y)
+  return parseToRead(parseToNumber(x) / parseToNumber(y))
 }
 
 export function power(x, y) {
-  const result = x
-  for(let i = 0; i < y; i++) {
+  let result = parseToNumber(x)
+  if (result == 0) {
+    return 'zero'
+  }
+  for(let i = 1; i < parseToNumber(y); i++) {
     result *= x
   }
-  return result
+  return parseToRead(result)
 }
 
 export function squareRoot(x, y) {

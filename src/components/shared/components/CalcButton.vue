@@ -55,7 +55,7 @@ watch(() => props.hover, value => {
         :key="icon"
         :icon="icon"
       />
-      <span v-if="extraText">{{ extraText }}</span>
+      <span style="margin-bottom: 10px;" v-if="extraText">{{ extraText }}</span>
     </div>
   </div>
 </template>

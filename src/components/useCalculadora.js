@@ -1,5 +1,5 @@
 import { useCalculatorStore } from '../store/calcStore';
-import { add, subtract, multiply, divide } from '../services/calculator';
+import { add, subtract, multiply, divide, power } from '../services/calculator';
 
 const validKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', '*', '/', '%', '=', ',', '.']
 const numberKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
@@ -14,7 +14,7 @@ function isValidCharKey (charKeyCode) {
 }
 
 export default function useCalculadora (window, keyButtons) {
-  const calcs = ['add', 'subtract', 'multiply', 'divide']
+  const calcs = ['add', 'subtract', 'multiply', 'divide', 'power']
   const calcsKeys = ['+', '-', '*', '/']
 
   const calcStore = useCalculatorStore()
@@ -119,6 +119,10 @@ export default function useCalculadora (window, keyButtons) {
         setOperation('÷')
         calcStore.lastCalc += ' ÷'
       }
+      else if (value == 'power') {
+        setOperation('xʸ')
+        calcStore.lastCalc += ' xʸ'
+      }
     }
   }
 
@@ -157,6 +161,9 @@ export default function useCalculadora (window, keyButtons) {
             case '÷':
               result = divide(calcStore.firstValue, calcStore.secondValue)
               break
+            case 'xʸ':
+              result = power(calcStore.firstValue, calcStore.secondValue)
+              break
             default:
               break
           }
@@ -164,7 +171,11 @@ export default function useCalculadora (window, keyButtons) {
 
           if (result.toString() == 'Infinity' && calcStore.operation == '÷') {
             setValorInvalido('Um número não pode ser dividido por zero')
-          } else {
+          }
+          else if (result.toString() == 'zero' && calcStore.operation == 'xʸ') {
+            setValorInvalido('Zero não pode ser elevado a nenhum número')
+          }
+          else {
             setValue(result)
           }
           // melhorar tratamento

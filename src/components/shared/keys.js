@@ -12,7 +12,7 @@ export default [
   { value: '4', icons: ['fa-4'], width: 1, keyDetect: '4', event: 'setNumber' },
   { value: '5', icons: ['fa-5'], width: 1, keyDetect: '5', event: 'setNumber' },
   { value: '6', icons: ['fa-6'], width: 1, keyDetect: '6', event: 'setNumber' },
-  { value: 'power', icons: ['fa-xmark'], extraText: '²', width: 1, keyDetect: 'none', event: 'power' },
+  { value: 'power', icons: ['fa-xmark'], extraText: 'ʸ', width: 1, keyDetect: 'none', event: 'power' },
   { value: '-', icons: ['fa-minus'], width: 1, keyDetect: '-', event: 'subtract' },
   { value: '1', icons: ['fa-1'], width: 1, keyDetect: '1', event: 'setNumber' },
   { value: '2', icons: ['fa-2'], width: 1, keyDetect: '2', event: 'setNumber' },
