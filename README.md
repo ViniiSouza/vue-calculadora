@@ -1,29 +1,15 @@
 # vue-calculadora
 
-This template should help get you started developing with Vue 3 in Vite.
+Projeto de uma calculadora em vue, com cálculos padrões, cálculos avançados, histórico de cálculos e interface amigável
 
-## Recommended IDE Setup
+<img style="margin: 0 auto; width: 50%;" src="https://i.imgur.com/qd37vqu.png" />
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Objetivos
 
-## Customize configuration
+Trabalhar com os conceitos de matemática, componentização, arquivos js com diferentes objetivos, etc.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Futuramente desejo transformar em um módulo para poder ser usada em outros projetos.
 
-## Project Setup
+## Base de projeto
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+A base desse projeto está sendo a <a href="https://github.com/microsoft/calculator">calculadora padrão do Windows 10</a> por ter uma ótima fluidez, usabilidade e aparência agradável.
