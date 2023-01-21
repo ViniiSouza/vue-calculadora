@@ -1,7 +1,7 @@
 import { useCalculatorStore } from '../store/calcStore';
 import { add, subtract, multiply, divide } from '../services/calculator';
 
-const validKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', '*', '/', '%', '=', ',']
+const validKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', '*', '/', '%', '=', ',', '.']
 const numberKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 const validCharKeys = [8, 13, 46] // backspace, enter and delete
 
@@ -69,6 +69,17 @@ export default function useCalculadora (window, keyButtons) {
     calcStore.firstValue = ''
     calcStore.secondValue = ''
     calcStore.lastCalc = ''
+  }
+
+  const setValorInvalido = (mensagemErro) => {
+    calcStore.invalidOperation = true
+    setValue(mensagemErro)
+    // bloquear ações
+    setTimeout(() => {
+      setValue(0)
+      calcStore.invalidOperation = false
+      clearValue()
+    }, 1500)
   }
 
   const removeLastCharacter = () => {
@@ -150,7 +161,11 @@ export default function useCalculadora (window, keyButtons) {
         }
         calcStore.lastCalc += ` ${calcStore.secondValue} =`
         
-        setValue(result)
+        if (result.toString() == 'Infinity' && calcStore.operation == '÷') {
+          setValorInvalido('Um número não pode ser dividido por zero')
+        } else {
+          setValue(result)
+        }
         // melhorar tratamento
         calcStore.firstValue = result
         calcStore.secondValue = ''
@@ -164,7 +179,7 @@ export default function useCalculadora (window, keyButtons) {
     window.addEventListener("keypress", function (e) {
       const keyTranslated = String.fromCharCode(e.keyCode)
       if (isValidKey(e.keyCode)) {
-        if (keyTranslated == ',') {
+        if (keyTranslated == ',' || keyTranslated == '.') {
           setComma()
         }
         else if (numberKeys.includes(keyTranslated)) {

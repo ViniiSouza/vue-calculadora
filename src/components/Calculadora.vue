@@ -21,7 +21,7 @@ onMounted(() => setKeyboardEvents())
     <div class="calc--body default-border">
       <div class="calc--input default-border">
           <p class="calc-input--over-value">{{ calcStore.operation || '&nbsp;' }} <span class="calc-input--last-calc">{{  calcStore.lastCalc }}</span></p>
-        <p class="calc--input--value">{{ calcStore.value }}</p>
+        <p :class="calcStore.invalidOperation ? 'calc--input--value-invalid' : 'calc--input--value'">{{ calcStore.value }}</p>
       </div>
       <div class="calc--board default-border">
         <calc-button
@@ -91,6 +91,15 @@ onMounted(() => setKeyboardEvents())
   color: white;
   text-align: end;
   font-size: 36px;
+  line-height: 1.5vh;
+  margin-right: 0.5vw;
+}
+
+.calc--input--value-invalid {
+  display: block;
+  color: grey;
+  text-align: end;
+  font-size: 22px;
   line-height: 1.5vh;
   margin-right: 0.5vw;
 }
