@@ -8,7 +8,8 @@ export const useCalculatorStore = defineStore('calculator', {
     operation: '',
     handling: 'first',
     lastCalc: '',
-    invalidOperation: false
+    invalidOperation: false,
+    blockActions: false,
   }),
   getters: {
     getValue: state => state.value

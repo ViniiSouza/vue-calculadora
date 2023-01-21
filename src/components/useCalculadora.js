@@ -72,12 +72,12 @@ export default function useCalculadora (window, keyButtons) {
   }
 
   const setValorInvalido = (mensagemErro) => {
-    calcStore.invalidOperation = true
+    calcStore.invalidOperation = calcStore.blockActions = true
     setValue(mensagemErro)
     // bloquear ações
     setTimeout(() => {
       setValue(0)
-      calcStore.invalidOperation = false
+      calcStore.invalidOperation = calcStore.blockActions = false
       clearValue()
     }, 1500)
   }
@@ -123,54 +123,56 @@ export default function useCalculadora (window, keyButtons) {
   }
 
   const executeButton = (event, value) => {
-    defOperation(calcs, event)
-    if (event == 'setComma') {
-      setComma()
-    }
-    else if (event == 'setNumber') {
-      setNumber(value)
-    }
-    else if (event == 'clear') {
-      clearValue()
-    }
-    else if (event == 'clearAll') {
-      // tratar clear all (ac)
-      clearValue()
-    }
-    else if (event == 'delete') {
-      removeLastCharacter()
-    }
-    else if (event == 'getResult') {
-      if (calcStore.firstValue && calcStore.secondValue) {
-        let result
-        switch (calcStore.operation) {
-          case '+':
-            result = add(calcStore.firstValue, calcStore.secondValue)
-            break
-          case '-':
-            result = subtract(calcStore.firstValue, calcStore.secondValue)
-            break
-          case 'x':
-            result = multiply(calcStore.firstValue, calcStore.secondValue)
-            break
-          case '÷':
-            result = divide(calcStore.firstValue, calcStore.secondValue)
-            break
-          default:
-            break
+    if (!calcStore.blockActions) {
+      defOperation(calcs, event)
+      if (event == 'setComma') {
+        setComma()
+      }
+      else if (event == 'setNumber') {
+        setNumber(value)
+      }
+      else if (event == 'clear') {
+        clearValue()
+      }
+      else if (event == 'clearAll') {
+        // tratar clear all (ac)
+        clearValue()
+      }
+      else if (event == 'delete') {
+        removeLastCharacter()
+      }
+      else if (event == 'getResult') {
+        if (calcStore.firstValue && calcStore.secondValue) {
+          let result
+          switch (calcStore.operation) {
+            case '+':
+              result = add(calcStore.firstValue, calcStore.secondValue)
+              break
+            case '-':
+              result = subtract(calcStore.firstValue, calcStore.secondValue)
+              break
+            case 'x':
+              result = multiply(calcStore.firstValue, calcStore.secondValue)
+              break
+            case '÷':
+              result = divide(calcStore.firstValue, calcStore.secondValue)
+              break
+            default:
+              break
+          }
+          calcStore.lastCalc += ` ${calcStore.secondValue} =`
+
+          if (result.toString() == 'Infinity' && calcStore.operation == '÷') {
+            setValorInvalido('Um número não pode ser dividido por zero')
+          } else {
+            setValue(result)
+          }
+          // melhorar tratamento
+          calcStore.firstValue = result
+          calcStore.secondValue = ''
+          calcStore.operation = ''
+          calcStore.handling = 'first'
         }
-        calcStore.lastCalc += ` ${calcStore.secondValue} =`
-        
-        if (result.toString() == 'Infinity' && calcStore.operation == '÷') {
-          setValorInvalido('Um número não pode ser dividido por zero')
-        } else {
-          setValue(result)
-        }
-        // melhorar tratamento
-        calcStore.firstValue = result
-        calcStore.secondValue = ''
-        calcStore.operation = ''
-        calcStore.handling = 'first'
       }
     }
   }
@@ -178,7 +180,7 @@ export default function useCalculadora (window, keyButtons) {
   const setKeyboardEvents = () => {
     window.addEventListener("keypress", function (e) {
       const keyTranslated = String.fromCharCode(e.keyCode)
-      if (isValidKey(e.keyCode)) {
+      if (isValidKey(e.keyCode) && !calcStore.blockActions) {
         if (keyTranslated == ',' || keyTranslated == '.') {
           setComma()
         }
@@ -191,7 +193,7 @@ export default function useCalculadora (window, keyButtons) {
     });
 
     window.addEventListener("keydown", function (e) {
-      if (isValidCharKey(e.keyCode)) {
+      if (isValidCharKey(e.keyCode) && !calcStore.blockActions) {
         let result
         switch (e.keyCode) {
           case 8:
