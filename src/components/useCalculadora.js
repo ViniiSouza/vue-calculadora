@@ -45,6 +45,9 @@ export default function useCalculadora (window, keyButtons) {
   }
 
   const setComma = () => {
+    if (!calcStore.getValue) {
+      setValue('0,')
+    }
     if (!calcStore.getValue.includes(',') && calcStore.getValue.length < 23) {
       let result = calcStore.getValue + ','
       setValue(result)
@@ -97,12 +100,11 @@ export default function useCalculadora (window, keyButtons) {
 
   const defOperation = (array, value) => {
     if (array.includes(value)) {
+      calcStore.clearOnNext = true
       calcStore.lastCalc = calcStore.firstValue
       if (calcStore.firstValue && calcStore.handling == 'first') {
-        calcStore.value = ''
         calcStore.handling = 'second'
       }
-      setValue('', false)
       if (value == 'add' || value == '+') {
         setOperation('+')
         calcStore.lastCalc += ' +'
@@ -126,9 +128,45 @@ export default function useCalculadora (window, keyButtons) {
     }
   }
 
-  const executeButton = (event, value) => {
+  const executeOperation = () => {
+    let result
+    switch (calcStore.operation) {
+      case '+':
+        result = add(calcStore.firstValue, calcStore.secondValue)
+        break
+      case '-':
+        result = subtract(calcStore.firstValue, calcStore.secondValue)
+        break
+      case 'x':
+        result = multiply(calcStore.firstValue, calcStore.secondValue)
+        break
+      case '÷':
+        result = divide(calcStore.firstValue, calcStore.secondValue)
+        break
+      case 'xʸ':
+        result = power(calcStore.firstValue, calcStore.secondValue)
+        break
+      default:
+        break
+    }
+    return result
+  }
+
+  const executeButton = (event, value, array = calcs) => {
     if (!calcStore.blockActions) {
-      defOperation(calcs, event)
+      if (calcStore.clearOnNext) {
+        setValue('', false)
+        calcStore.clearOnNext = false
+      }
+      if (calcStore.handling == 'second' && (calcs.includes(event) || calcsKeys.includes(event))) {
+        const result = executeOperation()
+        calcStore.lastCalc = result
+        setValue(result, false)
+        calcStore.firstValue = result
+        defOperation(calcsKeys, calcStore.operation)
+      } else {
+        defOperation(array, event)
+      }
       if (event == 'setComma') {
         setComma()
       }
@@ -147,26 +185,8 @@ export default function useCalculadora (window, keyButtons) {
       }
       else if (event == 'getResult') {
         if (calcStore.firstValue && calcStore.secondValue) {
-          let result
-          switch (calcStore.operation) {
-            case '+':
-              result = add(calcStore.firstValue, calcStore.secondValue)
-              break
-            case '-':
-              result = subtract(calcStore.firstValue, calcStore.secondValue)
-              break
-            case 'x':
-              result = multiply(calcStore.firstValue, calcStore.secondValue)
-              break
-            case '÷':
-              result = divide(calcStore.firstValue, calcStore.secondValue)
-              break
-            case 'xʸ':
-              result = power(calcStore.firstValue, calcStore.secondValue)
-              break
-            default:
-              break
-          }
+          const result = executeOperation()
+          
           calcStore.lastCalc += ` ${calcStore.secondValue} =`
 
           if (result.toString() == 'Infinity' && calcStore.operation == '÷') {
@@ -193,12 +213,12 @@ export default function useCalculadora (window, keyButtons) {
       const keyTranslated = String.fromCharCode(e.keyCode)
       if (isValidKey(e.keyCode) && !calcStore.blockActions) {
         if (keyTranslated == ',' || keyTranslated == '.') {
-          setComma()
+          executeButton('setComma', keyTranslated)
         }
         else if (numberKeys.includes(keyTranslated)) {
-          setNumber(keyTranslated)
+          executeButton('setNumber', keyTranslated)
         }
-        defOperation(calcsKeys, keyTranslated)
+        executeButton(keyTranslated, null, calcsKeys)
         setHover(keyTranslated)
       }
     });
