@@ -12,9 +12,6 @@ export const useCalculatorStore = defineStore('calculator', {
     blockActions: false,
     clearOnNext: false
   }),
-  getters: {
-    getValue: state => state.value
-  },
   actions: {
     changeValue(newValue) {
       this.value = newValue
@@ -22,11 +19,26 @@ export const useCalculatorStore = defineStore('calculator', {
     clearValue() {
       this.value = '0'
     },
+    changeFirstValue(newValue) {
+      this.firstValue = newValue
+    },
+    changeSecondValue(newValue) {
+      this.secondValue = newValue
+    },
     changeOperation(newOperation) {
       this.operation = newOperation
     },
     clearOperation() {
-      this.operation = '0'
+      this.operation = ''
+    },
+    changeHandling(newValue) {
+      this.handling = newValue
+    },
+    changeLastCalc(newValue) {
+      this.lastCalc = newValue
+    },
+    setClearOnNext(newValue) {
+      this.clearOnNext = newValue
     },
     removeLastCharacter() {
       this.value = this.value.substring(0, this.value.length - 1)

@@ -24,20 +24,20 @@ export default function useCalculadora (window, keyButtons) {
     if (setHandler) {
       if (calcStore.handling == 'first') {
         console.log('first')
-        calcStore.firstValue = value
+        calcStore.changeFirstValue(value)
       } else {
         console.log('second')
         console.log(value)
-        calcStore.secondValue = value
+        calcStore.changeSecondValue(value)
       }
     }
   }
 
   const setNumber = value => {
-    if (calcStore.getValue.length < 23) {
-      let newValue = calcStore.getValue
-      if (calcStore.getValue !== '0')
-        newValue = calcStore.getValue + value
+    if (calcStore.value.length < 23) {
+      let newValue = calcStore.value
+      if (calcStore.value !== '0')
+        newValue = calcStore.value + value
       else if (value != '0' && value != '00')
         newValue = value
       setValue(newValue)
@@ -45,11 +45,11 @@ export default function useCalculadora (window, keyButtons) {
   }
 
   const setComma = () => {
-    if (!calcStore.getValue) {
+    if (!calcStore.value) {
       setValue('0,')
     }
-    if (!calcStore.getValue.includes(',') && calcStore.getValue.length < 23) {
-      let result = calcStore.getValue + ','
+    if (!calcStore.value.includes(',') && calcStore.value.length < 23) {
+      let result = calcStore.value + ','
       setValue(result)
     }
   }
@@ -66,12 +66,12 @@ export default function useCalculadora (window, keyButtons) {
 
   const clearValue = () => {
     calcStore.clearValue()
-    calcStore.operation = ''
-    calcStore.handling = 'first'
+    calcStore.clearOperation()
+    calcStore.changeHandling('first')
     // tratar melhor tudo isso
-    calcStore.firstValue = ''
-    calcStore.secondValue = ''
-    calcStore.lastCalc = ''
+    calcStore.changeFirstValue('')
+    calcStore.changeSecondValue('')
+    calcStore.changeLastCalc('')
   }
 
   const setValorInvalido = (mensagemErro) => {
@@ -86,8 +86,8 @@ export default function useCalculadora (window, keyButtons) {
   }
 
   const removeLastCharacter = () => {
-    if (calcStore.getValue != '0') {
-      if (calcStore.getValue.length > 1)
+    if (calcStore.value != '0') {
+      if (calcStore.value.length > 1)
         calcStore.removeLastCharacter()
       else
         calcStore.changeValue('0')
@@ -100,10 +100,10 @@ export default function useCalculadora (window, keyButtons) {
 
   const defOperation = (array, value) => {
     if (array.includes(value)) {
-      calcStore.clearOnNext = true
-      calcStore.lastCalc = calcStore.firstValue
+      calcStore.setClearOnNext(true)
+      calcStore.changeLastCalc(calcStore.firstValue)
       if (calcStore.firstValue && calcStore.handling == 'first') {
-        calcStore.handling = 'second'
+        calcStore.changeHandling('second')
       }
       if (value == 'add' || value == '+') {
         setOperation('+')
@@ -156,13 +156,13 @@ export default function useCalculadora (window, keyButtons) {
     if (!calcStore.blockActions) {
       if (calcStore.clearOnNext) {
         setValue('', false)
-        calcStore.clearOnNext = false
+        calcStore.setClearOnNext(false)
       }
       if (calcStore.handling == 'second' && (calcs.includes(event) || calcsKeys.includes(event))) {
         const result = executeOperation()
-        calcStore.lastCalc = result
+        calcStore.changeLastCalc(result)
         setValue(result, false)
-        calcStore.firstValue = result
+        calcStore.changeFirstValue(result)
         defOperation(calcsKeys, event)
       } else {
         defOperation(array, event)
@@ -199,10 +199,10 @@ export default function useCalculadora (window, keyButtons) {
             setValue(result)
           }
           // melhorar tratamento
-          calcStore.firstValue = result
-          calcStore.secondValue = ''
-          calcStore.operation = ''
-          calcStore.handling = 'first'
+          calcStore.changeFirstValue(result)
+          calcStore.changeSecondValue('')
+          calcStore.clearOperation()
+          calcStore.changeHandling('first')
         }
       }
     }
