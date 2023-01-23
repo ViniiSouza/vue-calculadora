@@ -163,7 +163,7 @@ export default function useCalculadora (window, keyButtons) {
         calcStore.lastCalc = result
         setValue(result, false)
         calcStore.firstValue = result
-        defOperation(calcsKeys, calcStore.operation)
+        defOperation(calcsKeys, event)
       } else {
         defOperation(array, event)
       }
