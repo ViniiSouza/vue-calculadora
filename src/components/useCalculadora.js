@@ -23,11 +23,8 @@ export default function useCalculadora (window, keyButtons) {
     calcStore.changeValue(value)
     if (setHandler) {
       if (calcStore.handling == 'first') {
-        console.log('first')
         calcStore.changeFirstValue(value)
       } else {
-        console.log('second')
-        console.log(value)
         calcStore.changeSecondValue(value)
       }
     }
@@ -163,7 +160,7 @@ export default function useCalculadora (window, keyButtons) {
         calcStore.changeLastCalc(result)
         setValue(result, false)
         calcStore.changeFirstValue(result)
-        defOperation(calcsKeys, event)
+        defOperation([...calcs, ...calcsKeys], event)
       } else {
         defOperation(array, event)
       }
