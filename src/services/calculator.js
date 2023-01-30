@@ -34,7 +34,14 @@ export function power(x, y) {
 }
 
 export function squareRoot(x, y) {
-  // ?
+  const raiz = parseToNumber(y)
+  if (raiz == 2) {
+    return Math.sqrt(parseToNumber(x))
+  }
+  if (raiz == 3) {
+    return Math.cbrt(parseToNumber(x))
+  }
+  return Math.pow(25, 1 / raiz)
 }
 
 export function percentage(x, y) {

@@ -149,6 +149,25 @@ export default function useCalculadora (window, keyButtons) {
     return result
   }
 
+  const validateResult = result => {
+    if (result.toString() == 'Infinity' && calcStore.operation == '÷') {
+      setValorInvalido('Um número não pode ser dividido por zero')
+    }
+    else if (result.toString() == 'zero' && calcStore.operation == 'xʸ') {
+      setValorInvalido('Zero não pode ser elevado a nenhum número')
+    }
+    else if (result.toString() == 'Infinity') {
+      setValorInvalido('O resultado é incalculável')
+    }
+    else if (result.toString() == 'NaN') {
+      setValorInvalido('O resultado é inválido')
+    }
+    else {
+      console.log(result.toString())
+      setValue(result)
+    }
+  }
+
   const executeButton = (event, value, array = calcs) => {
     if (!calcStore.blockActions) {
       if (calcStore.clearOnNext) {
@@ -158,7 +177,7 @@ export default function useCalculadora (window, keyButtons) {
       if (calcStore.handling == 'second' && (calcs.includes(event) || calcsKeys.includes(event))) {
         const result = executeOperation()
         calcStore.changeLastCalc(result)
-        setValue(result, false)
+        validateResult(result)
         calcStore.changeFirstValue(result)
         defOperation([...calcs, ...calcsKeys], event)
       } else {
@@ -186,15 +205,8 @@ export default function useCalculadora (window, keyButtons) {
           
           calcStore.lastCalc += ` ${calcStore.secondValue} =`
 
-          if (result.toString() == 'Infinity' && calcStore.operation == '÷') {
-            setValorInvalido('Um número não pode ser dividido por zero')
-          }
-          else if (result.toString() == 'zero' && calcStore.operation == 'xʸ') {
-            setValorInvalido('Zero não pode ser elevado a nenhum número')
-          }
-          else {
-            setValue(result)
-          }
+          validateResult(result)
+          
           // melhorar tratamento
           calcStore.changeFirstValue(result)
           calcStore.changeSecondValue('')
