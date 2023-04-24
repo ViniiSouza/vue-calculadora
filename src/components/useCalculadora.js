@@ -101,6 +101,7 @@ export default function useCalculadora (window, keyButtons) {
       calcStore.changeLastCalc(calcStore.firstValue)
       if (calcStore.firstValue && calcStore.handling == 'first') {
         calcStore.changeHandling('second')
+        calcStore.setClearOnNext(true)
       }
       if (value == 'add' || value == '+') {
         setOperation('+')
@@ -168,19 +169,23 @@ export default function useCalculadora (window, keyButtons) {
     }
   }
 
-  const executeButton = (event, value, array = calcs) => {
-    if (!calcStore.blockActions) {
-      if (calcStore.clearOnNext) {
+  const executeButton = (event, value, disabled = false, array = calcs) => {
+    if (!calcStore.blockActions && !disabled) {
+      if (calcStore.handling == 'second' && (calcs.includes(event) || calcsKeys.includes(event))) {
+        if (calcStore.secondValue) {
+          const result = executeOperation()
+          calcStore.changeLastCalc(result)
+          validateResult(result)
+          calcStore.changeFirstValue(result)
+          calcStore.changeSecondValue('')
+        }
+        defOperation([...calcs, ...calcsKeys], event)
+      }
+      else if (calcStore.clearOnNext && (!calcs.includes(event) && !calcsKeys.includes(event))) {
         setValue('', false)
         calcStore.setClearOnNext(false)
       }
-      if (calcStore.handling == 'second' && (calcs.includes(event) || calcsKeys.includes(event))) {
-        const result = executeOperation()
-        calcStore.changeLastCalc(result)
-        validateResult(result)
-        calcStore.changeFirstValue(result)
-        defOperation([...calcs, ...calcsKeys], event)
-      } else {
+      else {
         defOperation(array, event)
       }
       if (event == 'setComma') {
@@ -212,6 +217,7 @@ export default function useCalculadora (window, keyButtons) {
           calcStore.changeSecondValue('')
           calcStore.clearOperation()
           calcStore.changeHandling('first')
+          calcStore.setClearOnNext(true)
         }
       }
     }
@@ -227,7 +233,7 @@ export default function useCalculadora (window, keyButtons) {
         else if (numberKeys.includes(keyTranslated)) {
           executeButton('setNumber', keyTranslated)
         }
-        executeButton(keyTranslated, null, calcsKeys)
+        executeButton(keyTranslated, null, false, calcsKeys)
         setHover(keyTranslated)
       }
     });

@@ -25,6 +25,10 @@ const props = defineProps({
   hover: {
     default: false,
     type: Boolean
+  },
+  disabled: {
+    default: false,
+    type: Boolean
   }
 })
 
@@ -48,7 +52,8 @@ watch(() => props.hover, value => {
   >
     <div
       class="calc--button--place"
-      :class="hover ? 'calc--button_hover' : ''"
+      :title="disabled ? 'Em desenvolvimento' : ''"
+      :class="`${hover ? 'calc--button_hover' : ''} ${disabled ? 'calc--button--place-disabled' : ''}`"
     >
       <fa-icon
         v-for="icon in icons"
@@ -71,6 +76,10 @@ watch(() => props.hover, value => {
   align-items: center;
 }
 
+.calc--button--place-disabled {
+  cursor: not-allowed !important;
+}
+
 .calc--button--place {
   cursor: pointer;
   transition: 0.3s;
@@ -82,7 +91,7 @@ watch(() => props.hover, value => {
   height: 70px;
 }
 
-.calc--button:hover .calc--button--place {
+.calc--button:hover .calc--button--place:not(.calc--button--place-disabled) {
   background-color: rgb(240, 240, 240);
   color: rgb(29, 29, 29);
   transition: 0.3s;

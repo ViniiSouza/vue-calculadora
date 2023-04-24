@@ -4,7 +4,7 @@ export const useCalculatorStore = defineStore('calculator', {
   state: () => ({
     value: '0',
     firstValue: '0',
-    secondValue: '0',
+    secondValue: '',
     operation: '',
     handling: 'first',
     lastCalc: '',

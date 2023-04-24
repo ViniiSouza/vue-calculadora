@@ -33,7 +33,8 @@ onMounted(() => setKeyboardEvents())
           :event="key.event"
           :extra-text="key.extraText"
           :hover="key.hover"
-          @button-clicked="executeButton(key.event, key.value)"
+          :disabled="key.disabled"
+          @button-clicked="executeButton(key.event, key.value, key.disabled)"
         />
       </div>
     </div>
