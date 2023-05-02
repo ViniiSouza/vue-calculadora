@@ -121,7 +121,7 @@ export default function useCalculadora (window, keyButtons) {
       }
       else if (value == 'power') {
         setOperation('xʸ')
-        calcStore.lastCalc += ' xʸ'
+        calcStore.lastCalc += '^'
       }
     }
   }
