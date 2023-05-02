@@ -41,7 +41,12 @@ export const useCalculatorStore = defineStore('calculator', {
       this.clearOnNext = newValue
     },
     removeLastCharacter() {
-      this.value = this.value.substring(0, this.value.length - 1)
+      this.changeValue(this.value.substring(0, this.value.length - 1))
+      if (this.handling == 'first') {
+        this.changeFirstValue(this.value)
+      } else {
+        this.changeSecondValue(this.value)
+      }
     }
   },
 })
